@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trianon (Royal au Chocolat)</title>
+  <meta name="description" content="Entremets trois couches : dacquoise aux noisettes, croustillant praliné et chantilly au chocolat. Un classique de la pâtisserie française.">
+  <meta property="og:title" content="Trianon (Royal au Chocolat)">
+  <meta property="og:description" content="Entremets trois couches : dacquoise aux noisettes, croustillant praliné et chantilly au chocolat.">
+  <meta property="og:image" content="https://www.cookomix.com/wp-content/uploads/2017/05/trianon-thermomix-800x600.jpg">
+  <style>
+    /* === RESET ET BASE === */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f5f5f5; }
+    .container { max-width: 1200px; margin: 0 auto; background-color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+
+    /* === HEADER === */
+    .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 60px 40px; text-align: center; }
+    .header h1 { font-size: 2.8em; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+    .header .resume { font-size: 1.15em; opacity: 0.95; margin-top: 15px; max-width: 800px; margin-left: auto; margin-right: auto; }
+    .header .source { margin-top: 25px; font-size: 0.95em; opacity: 0.9; }
+    .header .source a { color: white; text-decoration: underline; font-weight: 500; }
+    .header .source a:hover { opacity: 0.8; }
+
+    /* === NAVIGATION === */
+    .nav-retour { background-color: #f8f9fa; padding: 15px 40px; border-bottom: 1px solid #e9ecef; }
+    .nav-retour a { color: #667eea; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+    .nav-retour a:hover { text-decoration: underline; }
+
+    /* === IMAGE PRINCIPALE === */
+    .image-principale-container { width: 100%; max-height: 500px; overflow: hidden; background-color: #f0f0f0; }
+    .image-principale { width: 100%; height: 500px; object-fit: cover; display: block; }
+
+    /* === INFORMATIONS RAPIDES === */
+    .infos-rapides { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; background-color: #f8f9fa; border-bottom: 3px solid #667eea; }
+    .info-item { text-align: center; padding: 30px 20px; border-right: 1px solid #e9ecef; }
+    .info-item:last-child { border-right: none; }
+    .info-item .icon { font-size: 2.5em; margin-bottom: 12px; display: block; }
+    .info-item .label { font-size: 0.85em; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 600; }
+    .info-item .value { font-size: 1.4em; font-weight: bold; color: #667eea; }
+
+    /* === SECTIONS PRINCIPALES === */
+    .content { padding: 50px 40px; }
+    .section { margin-bottom: 60px; }
+    .section-title { font-size: 2.2em; color: #667eea; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 3px solid #667eea; display: flex; align-items: center; gap: 15px; }
+
+    /* === INGRÉDIENTS === */
+    .ingredients-list { background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%); padding: 35px; border-radius: 12px; border-left: 6px solid #ffc107; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .ingredients-group { margin-bottom: 25px; }
+    .ingredients-group:last-child { margin-bottom: 0; }
+    .ingredients-group h3 { font-size: 1.1em; color: #856404; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px dashed #ffc107; padding-bottom: 8px; }
+    .ingredients-list ul { list-style: none; columns: 2; column-gap: 40px; }
+    .ingredients-list li { padding: 12px 0; position: relative; padding-left: 35px; break-inside: avoid; font-size: 1.05em; }
+    .ingredients-list li:before { content: "✓"; position: absolute; left: 0; color: #ffc107; font-weight: bold; font-size: 1.4em; top: 8px; }
+
+    /* === ONGLETS === */
+    .tabs { display: flex; gap: 15px; margin-bottom: 35px; border-bottom: 3px solid #e9ecef; flex-wrap: wrap; }
+    .tab { padding: 18px 35px; background-color: #f8f9fa; border: none; border-radius: 10px 10px 0 0; cursor: pointer; font-size: 1.15em; font-weight: bold; color: #6c757d; transition: all 0.3s ease; border: 2px solid transparent; border-bottom: none; }
+    .tab:hover { background-color: #e9ecef; transform: translateY(-2px); }
+    .tab.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-color: #667eea; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.4s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* === ÉTAPES === */
+    .etape { background-color: white; border: 2px solid #e9ecef; border-radius: 12px; padding: 30px; margin-bottom: 25px; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    .etape:hover { box-shadow: 0 6px 20px rgba(102, 126, 234, 0.15); transform: translateX(8px); border-color: #667eea; }
+    .etape-header { display: flex; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+    .etape-numero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4em; font-weight: bold; flex-shrink: 0; box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3); }
+    .etape-titre { flex: 1; font-size: 1.4em; color: #333; min-width: 200px; font-weight: 600; }
+    .etape-duree { background-color: #d4edda; color: #155724; padding: 8px 18px; border-radius: 25px; font-size: 0.95em; font-weight: 600; border: 1px solid #c3e6cb; }
+    .etape-description { font-size: 1.1em; line-height: 1.9; color: #495057; margin-left: 65px; }
+    .thermomix-params { display: flex; gap: 12px; flex-wrap: wrap; margin-left: 65px; margin-top: 20px; }
+    .thermomix-params span { background-color: #e7f3ff; color: #004085; padding: 10px 18px; border-radius: 25px; font-size: 0.95em; font-weight: 600; border: 1px solid #bee5eb; display: inline-flex; align-items: center; gap: 6px; }
+    .thermomix-params .temp { background-color: #fff3cd; color: #856404; border-color: #ffeeba; }
+    .thermomix-params .vitesse { background-color: #d1ecf1; color: #0c5460; border-color: #bee5eb; }
+    .thermomix-params .duree { background-color: #d4edda; color: #155724; border-color: #c3e6cb; }
+    .thermomix-params .sens { background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; }
+    .etape-ingredients { background-color: #f8f9fa; padding: 18px; border-radius: 8px; margin-left: 65px; margin-top: 18px; font-size: 1em; border-left: 4px solid #667eea; }
+    .etape-ingredients strong { color: #667eea; }
+    .etape-accessoire { margin-left: 65px; margin-top: 12px; font-style: italic; color: #6c757d; font-size: 0.95em; }
+
+    /* === CONSEILS === */
+    .conseils { background-color: #d1ecf1; border-left: 6px solid #0c5460; padding: 25px; border-radius: 10px; margin-top: 35px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .conseils h3 { color: #0c5460; margin-bottom: 15px; font-size: 1.4em; display: flex; align-items: center; gap: 10px; }
+    .conseils p { color: #004085; line-height: 1.9; font-size: 1.05em; }
+
+    /* === ENCART COMMENTAIRE === */
+    .commentaire-box { background: linear-gradient(135deg, #fff9e6 0%, #ffeaa7 100%); border: 3px dashed #ffc107; border-radius: 12px; padding: 35px; margin-top: 50px; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2); }
+    .commentaire-box h3 { color: #856404; margin-bottom: 20px; font-size: 1.6em; display: flex; align-items: center; gap: 12px; }
+    .placeholder-text { color: #856404; background-color: white; border: 2px solid #ffc107; border-radius: 8px; padding: 18px; min-height: 120px; line-height: 1.8; }
+    .placeholder-text strong { display: block; margin-bottom: 10px; font-size: 1.1em; }
+
+    /* === BOUTONS D'ACTION === */
+    .actions-bar { display: flex; gap: 15px; justify-content: center; padding: 30px; background-color: #f8f9fa; border-top: 2px solid #e9ecef; flex-wrap: wrap; }
+    .btn { padding: 14px 30px; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: 1em; cursor: pointer; border: none; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
+    .btn-secondary { background-color: white; color: #667eea; border: 2px solid #667eea; }
+    .btn-secondary:hover { background-color: #667eea; color: white; }
+
+    /* === FOOTER === */
+    .footer { background-color: #343a40; color: white; padding: 40px; text-align: center; }
+    .footer .date { opacity: 0.7; font-size: 0.95em; margin-top: 10px; }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      .header h1 { font-size: 2em; }
+      .content { padding: 30px 20px; }
+      .infos-rapides { grid-template-columns: repeat(2, 1fr); }
+      .info-item { border-right: none; border-bottom: 1px solid #e9ecef; }
+      .ingredients-list ul { columns: 1; }
+      .tabs { flex-direction: column; }
+      .tab { width: 100%; }
+      .etape-description, .thermomix-params, .etape-ingredients, .etape-accessoire { margin-left: 0; }
+      .etape-header { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* === IMPRESSION === */
+    @media print {
+      body { background-color: white; padding: 0; }
+      .container { box-shadow: none; }
+      .nav-retour, .actions-bar, .tab { display: none !important; }
+      .tab-content { display: block !important; page-break-before: always; }
+      .tab-content:first-of-type { page-break-before: avoid; }
+      .etape { page-break-inside: avoid; }
+      .commentaire-box { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- NAVIGATION RETOUR -->
+  <div class="nav-retour">
+    <a href="/">← Retour au catalogue</a>
+  </div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>🍫 Trianon (Royal au Chocolat)</h1>
+    <p class="resume">L'entremets trois couches par excellence : une dacquoise aux noisettes moelleuse, un croustillant praliné irrésistible, et une chantilly au chocolat légère et onctueuse. Digne d'un grand pâtissier !</p>
+    <p class="source">Recette originale : <a href="https://www.cookomix.com/recettes/trianon-thermomix/" target="_blank" rel="noopener">Voir la source sur Cookomix</a></p>
+  </div>
+
+  <!-- IMAGE PRINCIPALE -->
+  <div class="image-principale-container">
+    <img src="https://www.cookomix.com/wp-content/uploads/2017/05/trianon-thermomix-800x600.jpg" alt="Trianon au Thermomix" class="image-principale">
+  </div>
+
+  <!-- INFORMATIONS RAPIDES -->
+  <div class="infos-rapides">
+    <div class="info-item">
+      <span class="icon">👥</span>
+      <div class="label">Portions</div>
+      <div class="value">10 parts</div>
+    </div>
+    <div class="info-item">
+      <span class="icon">⏱️</span>
+      <div class="label">Préparation</div>
+      <div class="value">20 min</div>
+    </div>
+    <div class="info-item">
+      <span class="icon">🔥</span>
+      <div class="label">Repos / Cuisson</div>
+      <div class="value">3h45</div>
+    </div>
+    <div class="info-item">
+      <span class="icon">⌛</span>
+      <div class="label">Total</div>
+      <div class="value">4h21</div>
+    </div>
+    <div class="info-item">
+      <span class="icon">🛒</span>
+      <div class="label">Ingrédients</div>
+      <div class="value">11</div>
+    </div>
+  </div>
+
+  <!-- CONTENU PRINCIPAL -->
+  <div class="content">
+
+    <!-- INGRÉDIENTS -->
+    <div class="section">
+      <h2 class="section-title"><span>🛒</span> Ingrédients</h2>
+      <div class="ingredients-list">
+
+        <div class="ingredients-group">
+          <h3>🍰 La dacquoise</h3>
+          <ul>
+            <li>135 g de sucre en poudre (100 g + 35 g)</li>
+            <li>90 g de noisettes</li>
+            <li>3 blancs d'œufs</li>
+            <li>1 pincée de sel</li>
+          </ul>
+        </div>
+
+        <div class="ingredients-group">
+          <h3>🍫 Le croustillant praliné</h3>
+          <ul>
+            <li>200 g de pralinoise</li>
+            <li>40 g de pralin</li>
+            <li>100 g de biscuits Gavottes (crêpes dentelles)</li>
+          </ul>
+        </div>
+
+        <div class="ingredients-group">
+          <h3>🍦 La chantilly au chocolat</h3>
+          <ul>
+            <li>350 g de crème fraîche liquide entière (très froide)</li>
+            <li>100 g de chocolat noir</li>
+            <li>100 g de chocolat au lait</li>
+            <li>2 c. à café de cacao en poudre non sucré</li>
+            <li>2 biscuits Gavottes émiettés (décoration)</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PRÉPARATION -->
+    <div class="section">
+      <h2 class="section-title"><span>👨‍🍳</span> Préparation</h2>
+
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab(event, 'classique')">📖 Version Classique</button>
+        <button class="tab" onclick="switchTab(event, 'thermomix')">🤖 Version Thermomix</button>
+      </div>
+
+      <!-- VERSION CLASSIQUE -->
+      <div id="tab-classique" class="tab-content active">
+
+        <!-- Dacquoise classique -->
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">1</div>
+            <div class="etape-titre">Préchauffage du four</div>
+            <div class="etape-duree">⏱ 5 min</div>
+          </div>
+          <div class="etape-description">
+            Préchauffer le four à 170°C. Tapisser une plaque de four d'une feuille de cuisson puis y poser un cadre à pâtisserie de 20 × 25 cm. Vous pouvez aussi utiliser un moule rectangulaire ou rond de dimension similaire, tapissé de papier sulfurisé en remontant sur les bords.
+          </div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">2</div>
+            <div class="etape-titre">Préparation du sucre glace maison et des noisettes</div>
+          </div>
+          <div class="etape-description">
+            Mixer finement <strong>100 g de sucre en poudre</strong> au robot ou au blender jusqu'à obtenir un sucre glace. Mixer séparément les <strong>90 g de noisettes</strong> en poudre fine. Mélanger les deux dans un saladier et réserver.
+          </div>
+          <div class="etape-ingredients"><strong>Ingrédients :</strong> 100 g sucre en poudre • 90 g noisettes</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">3</div>
+            <div class="etape-titre">Montage des blancs en neige</div>
+            <div class="etape-duree">⏱ 5 min</div>
+          </div>
+          <div class="etape-description">
+            Monter les <strong>3 blancs d'œufs</strong> avec <strong>1 pincée de sel</strong> au batteur électrique. Lorsqu'ils commencent à mousser, ajouter progressivement les <strong>35 g de sucre restants</strong> et continuer à battre jusqu'à obtenir des blancs bien fermes et brillants.
+          </div>
+          <div class="etape-ingredients"><strong>Ingrédients :</strong> 3 blancs d'œufs • 1 pincée de sel • 35 g sucre en poudre</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">4</div>
+            <div class="etape-titre">Assemblage de la dacquoise</div>
+          </div>
+          <div class="etape-description">
+            Verser délicatement les blancs en neige sur le mélange noisettes/sucre glace. Incorporer en pliant à la maryse, sans casser les blancs. Verser la préparation dans le cadre ou le moule préparé et lisser la surface.
+          </div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">5</div>
+            <div class="etape-titre">Cuisson de la dacquoise</div>
+            <div class="etape-duree">⏱ 15 min à 170°C</div>
+          </div>
+          <div class="etape-description">
+            Enfourner pendant <strong>15 minutes à 170°C</strong>. La dacquoise doit être légèrement dorée. Laisser refroidir complètement avant de passer à l'étape suivante.
+          </div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">6</div>
+            <div class="etape-titre">Croustillant praliné</div>
+            <div class="etape-duree">⏱ 10 min</div>
+          </div>
+          <div class="etape-description">
+            Faire fondre les <strong>200 g de pralinoise</strong> au bain-marie ou au micro-ondes par tranches de 30 secondes. Une fois fondue, incorporer les <strong>40 g de pralin</strong> et les <strong>100 g de biscuits Gavottes</strong> émiettés grossièrement. Mélanger pour enrober uniformément. Étaler immédiatement sur la dacquoise refroidie en une couche régulière.
+          </div>
+          <div class="etape-ingredients"><strong>Ingrédients :</strong> 200 g pralinoise • 40 g pralin • 100 g biscuits Gavottes</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">7</div>
+            <div class="etape-titre">Chantilly – Préparer la crème fouettée</div>
+            <div class="etape-duree">⏱ 20 min de repos + 5 min</div>
+          </div>
+          <div class="etape-description">
+            Placer le bol du batteur et les fouets au congélateur pendant <strong>20 minutes</strong>. Verser les <strong>350 g de crème liquide entière très froide</strong> et fouetter à vitesse progressive jusqu'à obtenir une chantilly ferme. Réserver au réfrigérateur.
+          </div>
+          <div class="etape-ingredients"><strong>Ingrédients :</strong> 350 g crème fraîche liquide entière (très froide)</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">8</div>
+            <div class="etape-titre">Fonte du chocolat</div>
+            <div class="etape-duree">⏱ 10 min de repos</div>
+          </div>
+          <div class="etape-description">
+            Faire fondre les <strong>100 g de chocolat noir</strong> et les <strong>100 g de chocolat au lait</strong> (en morceaux) au bain-marie ou micro-ondes. Laisser refroidir pendant <strong>10 minutes</strong> — le chocolat doit être à température ambiante avant d'être incorporé à la chantilly.
+          </div>
+          <div class="etape-ingredients"><strong>Ingrédients :</strong> 100 g chocolat noir • 100 g chocolat au lait</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">9</div>
+            <div class="etape-titre">Assemblage de la mousse et montage</div>
+          </div>
+          <div class="etape-description">
+            Incorporer délicatement le chocolat refroidi à la chantilly en pliant à la maryse pour ne pas faire retomber la mousse. Verser la mousse chocolat sur le croustillant. Lisser la surface. Réserver au réfrigérateur pendant <strong>3 heures minimum</strong> (idéalement une nuit).
+          </div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">10</div>
+            <div class="etape-titre">Décoration et service</div>
+          </div>
+          <div class="etape-description">
+            Au moment de servir, démouler délicatement le Trianon. Saupoudrer de <strong>2 c. à café de cacao en poudre non sucré</strong> à l'aide d'une passoire fine. Émietter <strong>2 biscuits Gavottes</strong> sur le dessus pour la décoration.
+          </div>
+          <div class="etape-ingredients"><strong>Décoration :</strong> 2 c. à café cacao non sucré • 2 biscuits Gavottes émiettés</div>
+        </div>
+
+        <div class="conseils">
+          <h3><span>💡</span> Conseils version classique</h3>
+          <p>
+            <strong>Préparez la veille</strong> pour un résultat optimal — le gâteau se tient mieux après une nuit au frigo.<br>
+            <strong>Variante :</strong> remplacez les noisettes par la même quantité d'amandes en poudre pour une dacquoise aux amandes.<br>
+            <strong>Pour la décoration</strong> : un glaçage miroir au chocolat, quelques grains de pralin et des noisettes torréfiées caramélisées font un rendu spectaculaire.<br>
+            <strong>Astuce démoulage :</strong> décoller la dacquoise sur votre plat de service avant le montage — elle a tendance à coller au papier sulfurisé.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- VERSION THERMOMIX -->
+      <div id="tab-thermomix" class="tab-content">
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">1</div>
+            <div class="etape-titre">Préchauffage du four + préparation du moule</div>
+          </div>
+          <div class="etape-description">
+            Préchauffer le four à 170°C. Tapisser une plaque de four d'une feuille de cuisson puis poser un cadre à pâtisserie de 20 × 25 cm. Ou utiliser un moule de dimension similaire tapissé de papier sulfurisé.
+          </div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">2</div>
+            <div class="etape-titre">Sucre glace maison</div>
+          </div>
+          <div class="etape-description">
+            Mettre les <strong>100 g de sucre en poudre</strong> dans le bol. Mixer.
+          </div>
+          <div class="thermomix-params">
+            <span class="duree">⏱ 15 sec</span>
+            <span class="vitesse">💨 Vitesse 9</span>
+          </div>
+          <div class="etape-ingredients"><strong>Ingrédients :</strong> 100 g sucre en poudre</div>
+          <div class="etape-accessoire">Transvaser le sucre glace dans un saladier et réserver.</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">3</div>
+            <div class="etape-titre">Poudre de noisettes</div>
+          </div>
+          <div class="etape-description">
+            Mettre les <strong>90 g de noisettes</strong> dans le bol. Mixer.
+          </div>
+          <div class="thermomix-params">
+            <span class="duree">⏱ 10 sec</span>
+            <span class="vitesse">💨 Vitesse 9</span>
+          </div>
+          <div class="etape-ingredients"><strong>Ingrédients :</strong> 90 g noisettes</div>
+          <div class="etape-accessoire">Transvaser dans le saladier avec le sucre glace. Mélanger et réserver. Rincer et sécher le bol.</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">4</div>
+            <div class="etape-titre">Blancs en neige</div>
+          </div>
+          <div class="etape-description">
+            Insérer le fouet. Mettre les <strong>3 blancs d'œufs</strong> et la <strong>pincée de sel</strong> dans le bol. Lancer le programme. Au bout d'une minute, ajouter progressivement les <strong>35 g de sucre</strong> par l'orifice du couvercle.
+          </div>
+          <div class="thermomix-params">
+            <span class="duree">⏱ 3 min</span>
+            <span class="vitesse">💨 Vitesse 3,5</span>
+          </div>
+          <div class="etape-ingredients"><strong>Ingrédients :</strong> 3 blancs d'œufs • 1 pincée de sel • 35 g sucre en poudre</div>
+          <div class="etape-accessoire">🔧 Accessoire : fouet — Retirer le fouet en fin de programme.</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">5</div>
+            <div class="etape-titre">Assemblage et cuisson dacquoise</div>
+            <div class="etape-duree">⏱ 15 min à 170°C</div>
+          </div>
+          <div class="etape-description">
+            Verser les blancs fouettés dans le saladier contenant le mélange noisettes/sucre glace. Incorporer délicatement à la maryse en pliant. Verser dans le cadre/moule préparé et lisser. Enfourner <strong>15 min à 170°C</strong>. Laisser refroidir complètement. Rincer et sécher le bol.
+          </div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">6</div>
+            <div class="etape-titre">Croustillant praliné – Fonte pralinoise</div>
+          </div>
+          <div class="etape-description">
+            Mettre les <strong>200 g de pralinoise</strong> en morceaux dans le bol. Chauffer.
+          </div>
+          <div class="thermomix-params">
+            <span class="temp">🌡 50°C</span>
+            <span class="duree">⏱ 5 min</span>
+            <span class="vitesse">💨 Vitesse 2</span>
+          </div>
+          <div class="etape-ingredients"><strong>Ingrédients :</strong> 200 g pralinoise</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">7</div>
+            <div class="etape-titre">Croustillant praliné – Assemblage</div>
+          </div>
+          <div class="etape-description">
+            Ajouter les <strong>40 g de pralin</strong> et les <strong>100 g de biscuits Gavottes</strong> grossièrement émiettés dans le bol. Mélanger.
+          </div>
+          <div class="thermomix-params">
+            <span class="duree">⏱ 20 sec</span>
+            <span class="vitesse">💨 Vitesse 4</span>
+          </div>
+          <div class="etape-ingredients"><strong>Ingrédients :</strong> 40 g pralin • 100 g biscuits Gavottes</div>
+          <div class="etape-accessoire">Étaler immédiatement sur la dacquoise refroidie. Laver et sécher le bol.</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">8</div>
+            <div class="etape-titre">Chantilly – Refroidissement du bol</div>
+            <div class="etape-duree">⏱ 20 min au congélateur</div>
+          </div>
+          <div class="etape-description">
+            Placer le bol du Thermomix <strong>vide et propre</strong> au congélateur pendant <strong>20 minutes</strong>. La crème fraîche doit aussi être très froide.
+          </div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">9</div>
+            <div class="etape-titre">Crème fouettée</div>
+          </div>
+          <div class="etape-description">
+            Insérer le fouet dans le bol froid. Verser les <strong>350 g de crème fraîche liquide entière très froide</strong>. Lancer à vitesse 2 puis augmenter progressivement jusqu'à vitesse 4. Vous devez obtenir une chantilly ferme.
+          </div>
+          <div class="thermomix-params">
+            <span class="duree">⏱ 3 min</span>
+            <span class="vitesse">💨 Vitesse 2 → 4 progressive</span>
+          </div>
+          <div class="etape-ingredients"><strong>Ingrédients :</strong> 350 g crème fraîche liquide entière (très froide)</div>
+          <div class="etape-accessoire">🔧 Accessoire : fouet — Transvaser la chantilly dans un saladier et réserver au frigo. Retirer le fouet.</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">10</div>
+            <div class="etape-titre">Fonte des chocolats</div>
+          </div>
+          <div class="etape-description">
+            Mettre les <strong>100 g de chocolat noir</strong> et les <strong>100 g de chocolat au lait</strong> en morceaux dans le bol. Chauffer.
+          </div>
+          <div class="thermomix-params">
+            <span class="temp">🌡 50°C</span>
+            <span class="duree">⏱ 5 min</span>
+            <span class="vitesse">💨 Vitesse 2</span>
+          </div>
+          <div class="etape-ingredients"><strong>Ingrédients :</strong> 100 g chocolat noir • 100 g chocolat au lait</div>
+          <div class="etape-accessoire">Laisser reposer 10 minutes hors du bol pour refroidir à température ambiante avant d'incorporer à la chantilly.</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">11</div>
+            <div class="etape-titre">Assemblage mousse et montage final</div>
+          </div>
+          <div class="etape-description">
+            Incorporer délicatement le chocolat refroidi à la chantilly à l'aide d'une maryse, en pliant sans casser la mousse. Verser la mousse sur le croustillant. Lisser la surface. Réserver au réfrigérateur pendant <strong>3 heures minimum</strong>.
+          </div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">12</div>
+            <div class="etape-titre">Décoration et service</div>
+          </div>
+          <div class="etape-description">
+            Démouler délicatement. Saupoudrer de <strong>2 c. à café de cacao en poudre non sucré</strong> à travers une passoire fine. Émietter <strong>2 biscuits Gavottes</strong> sur le dessus pour la décoration.
+          </div>
+          <div class="etape-ingredients"><strong>Décoration :</strong> 2 c. à café cacao non sucré • 2 biscuits Gavottes émiettés</div>
+        </div>
+
+        <div class="conseils">
+          <h3><span>💡</span> Conseils version Thermomix</h3>
+          <p>
+            <strong>Bol très froid = chantilly réussie :</strong> ne pas négliger le passage du bol au congélateur.<br>
+            <strong>Chocolat trop chaud</strong> = chantilly qui retombe. Attendre impérativement les 10 minutes de refroidissement avant d'incorporer.<br>
+            <strong>Variante dacquoise :</strong> remplacer les noisettes par des amandes en poudre pour une version dacquoise aux amandes.
+          </p>
+        </div>
+
+        <div class="conseils" style="background-color: #f8d7da; border-left-color: #721c24; margin-top: 20px;">
+          <h3 style="color: #721c24;"><span>📋</span> Différences avec la version classique</h3>
+          <p style="color: #721c24;">
+            Le Thermomix réalise le sucre glace et la poudre de noisettes directement dans le bol, supprimant l'utilisation d'un robot séparé. Le montage des blancs en neige se fait en 3 min avec le fouet. La pralinoise fond à 50°C en mode chauffage doux. La chantilly est montée dans le bol refroidi au congélateur.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ENCART COMMENTAIRE -->
+    <div class="commentaire-box">
+      <h3><span>📝</span> Mes notes personnelles</h3>
+      <div class="placeholder-text">
+        <strong>Zone pour vos commentaires :</strong>
+        • Modifications que vous avez apportées<br>
+        • Conseils pour la prochaine fois<br>
+        • Ce que vous et vos invités ont aimé<br>
+        • Notes de dégustation
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <!-- BARRE D'ACTIONS -->
+  <div class="actions-bar">
+    <button class="btn btn-primary" onclick="window.print()">
+      <span>🖨️</span> Imprimer / PDF
+    </button>
+    <a href="/" class="btn btn-secondary">
+      <span>🏠</span> Retour au catalogue
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>✨ Recette ajoutée au catalogue</p>
+    <p class="date">Généré avec Claude AI • Mars 2026</p>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+  function switchTab(event, tabName) {
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    contents.forEach(content => content.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('tab-' + tabName).classList.add('active');
+  }
+</script>
+</body>
+</html>
