@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tarte Tropézienne — Ma Recette</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --sand: #f7f0e6;
+      --sand-dark: #ecddc8;
+      --sand-border: #d9c9ac;
+      --gold: #b8882a;
+      --gold-light: #d4a84b;
+      --gold-dark: #8a6010;
+      --azure: #2a6080;
+      --azure-light: #e0edf5;
+      --dark: #1a140a;
+      --mid: #4a3a22;
+      --muted: #8a7a5a;
+      --white: #fffdf8;
+      --shadow: 0 8px 40px rgba(26,20,10,.12);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--sand);
+      color: var(--dark);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--azure);
+      position: relative;
+      overflow: hidden;
+      padding: 90px 40px 70px;
+      text-align: center;
+    }
+    header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 75% 20%, rgba(212,168,75,.3) 0%, transparent 55%),
+        radial-gradient(ellipse at 15% 85%, rgba(255,255,255,.07) 0%, transparent 50%);
+    }
+    header::after {
+      content: '☀';
+      position: absolute;
+      font-size: 260px;
+      opacity: .04;
+      top: -60px; right: -30px;
+      line-height: 1;
+    }
+    .header-tag {
+      display: inline-block;
+      font-size: .68rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      border: 1px solid rgba(212,168,75,.4);
+      border-radius: 100px;
+      padding: 5px 18px;
+      margin-bottom: 22px;
+      position: relative;
+    }
+    header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.05;
+      position: relative;
+    }
+    header h1 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+    .header-sub {
+      margin-top: 16px;
+      font-size: .85rem;
+      color: rgba(255,255,255,.5);
+      position: relative;
+    }
+    .header-sub a { color: var(--gold-light); text-decoration: none; opacity: .8; }
+
+    /* ── META STRIP ── */
+    .meta-strip {
+      display: flex;
+      flex-wrap: wrap;
+      background: var(--dark);
+    }
+    .meta-item {
+      flex: 1 1 130px;
+      text-align: center;
+      padding: 22px 20px;
+      border-right: 1px solid rgba(255,255,255,.08);
+    }
+    .meta-item:last-child { border-right: none; }
+    .meta-label {
+      font-size: .62rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.4);
+      display: block;
+      margin-bottom: 5px;
+    }
+    .meta-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--gold-light);
+    }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 980px; margin: 0 auto; padding: 0 28px; }
+    section { padding: 60px 0; }
+
+    /* ── INGREDIENTS ── */
+    .ingredients-section { background: var(--white); }
+    .section-eyebrow {
+      font-size: .68rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+      color: var(--dark);
+    }
+    .ingredients-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .ingredient-group {
+      background: var(--sand);
+      border-radius: 18px;
+      padding: 28px;
+      border: 1px solid var(--sand-border);
+    }
+    .ingredient-group h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--gold-dark);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--sand-border);
+    }
+    .ingredient-group ul { list-style: none; }
+    .ingredient-group li {
+      padding: 7px 0;
+      font-size: .88rem;
+      border-bottom: 1px dashed var(--sand-border);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .ingredient-group li:last-child { border-bottom: none; }
+    .ingredient-group li::before {
+      content: '';
+      display: inline-block;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      margin-top: 9px;
+      flex-shrink: 0;
+    }
+    .qty { font-weight: 500; color: var(--gold-dark); min-width: 44px; }
+
+    /* ── TABS ── */
+    .recipe-section { background: var(--sand); }
+    .tabs { display: flex; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
+    .tab-btn {
+      padding: 13px 32px;
+      border: 2px solid var(--sand-border);
+      background: transparent;
+      color: var(--muted);
+      font-family: 'Jost', sans-serif;
+      font-size: .88rem;
+      font-weight: 500;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all .25s;
+      letter-spacing: .04em;
+    }
+    .tab-btn.active { background: var(--dark); border-color: var(--dark); color: var(--white); }
+    .tab-btn:not(.active):hover { border-color: var(--gold); color: var(--gold-dark); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; animation: fadeIn .35s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    /* ── STEPS ── */
+    .phase { margin-bottom: 52px; }
+    .phase-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--gold-dark);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .phase-title::after { content: ''; flex: 1; height: 1px; background: var(--sand-border); }
+    .step { display: flex; gap: 18px; margin-bottom: 18px; align-items: flex-start; }
+    .step-num {
+      width: 34px; height: 34px;
+      background: var(--azure);
+      color: #fff;
+      border-radius: 50%;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: .9rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-content {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 18px 22px;
+      border: 1px solid var(--sand-border);
+      flex: 1;
+      font-size: .88rem;
+      line-height: 1.8;
+    }
+    .step-content .hl { color: var(--gold-dark); font-weight: 500; }
+
+    /* ── THERMOMIX BADGES ── */
+    .tmx-params { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+    .tmx-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: .7rem;
+      font-weight: 500;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+    .tmx-temp  { background: #fff3e0; color: #bf6000; }
+    .tmx-speed { background: #e8f0fe; color: #1a56b0; }
+    .tmx-time  { background: #e8f5e9; color: #2e7d32; }
+    .tmx-rev   { background: #fce4ec; color: #c2185b; }
+    .tmx-note {
+      margin-top: 10px;
+      font-size: .82rem;
+      color: var(--muted);
+      background: rgba(184,136,42,.08);
+      border-left: 3px solid var(--gold-light);
+      padding: 8px 12px;
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* ── CONSERVATION ── */
+    .conservation-box {
+      margin-top: 48px;
+      background: var(--dark);
+      color: var(--white);
+      border-radius: 20px;
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .conservation-icon { font-size: 2rem; }
+    .conservation-box p { font-size: .88rem; line-height: 1.7; }
+    .conservation-box strong { color: var(--gold-light); }
+
+    /* ── COMMENTS ── */
+    .comments-section { background: var(--white); }
+    .comment-card {
+      background: var(--sand);
+      border: 1.5px solid var(--sand-border);
+      border-radius: 20px;
+      padding: 32px;
+      min-height: 180px;
+      position: relative;
+    }
+    .comment-card::before {
+      content: '✎';
+      position: absolute;
+      top: 18px; right: 22px;
+      font-size: 1.1rem;
+      color: var(--sand-border);
+    }
+    .comment-placeholder { font-style: italic; color: var(--muted); font-size: .92rem; }
+    .comment-lines { margin-top: 22px; }
+    .comment-line { height: 1px; background: var(--sand-border); margin-bottom: 30px; }
+    .comment-line:last-child { margin-bottom: 0; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,.35);
+      text-align: center;
+      padding: 30px;
+      font-size: .78rem;
+    }
+    footer a { color: var(--gold-light); text-decoration: none; opacity: .7; }
+
+    @media(max-width:600px) {
+      header { padding: 60px 20px 48px; }
+      .tabs { flex-direction: column; }
+      .tab-btn { text-align: center; }
+      .step { flex-direction: column; gap: 8px; }
+      .step-num { width: 28px; height: 28px; font-size: .8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header>
+  <p class="header-tag">Recette personnelle</p>
+  <h1>Tarte <em>Tropézienne</em></h1>
+  <p class="header-sub">Source : <a href="https://www.atelierdeschefs.fr/recettes/13552/tarte-tropezienne/" target="_blank">L'Atelier des Chefs</a> · Brioche moelleuse & crème légère à la fleur d'oranger</p>
+</header>
+
+<!-- ══ META ══ -->
+<div class="meta-strip">
+  <div class="meta-item"><span class="meta-label">Préparation</span><span class="meta-value">1h</span></div>
+  <div class="meta-item"><span class="meta-label">Cuisson</span><span class="meta-value">20 min</span></div>
+  <div class="meta-item"><span class="meta-label">Repos</span><span class="meta-value">2h</span></div>
+  <div class="meta-item"><span class="meta-label">Niveau</span><span class="meta-value">Intermédiaire</span></div>
+  <div class="meta-item"><span class="meta-label">Portions</span><span class="meta-value">6 pers.</span></div>
+</div>
+
+<!-- ══ INGRÉDIENTS ══ -->
+<section class="ingredients-section">
+  <div class="container">
+    <span class="section-eyebrow">Liste complète</span>
+    <h2 class="section-title">Ingrédients</h2>
+    <div class="ingredients-grid">
+
+      <div class="ingredient-group">
+        <h3>🥖 Pâte à brioche</h3>
+        <ul>
+          <li><span class="qty">300 g</span> farine T55</li>
+          <li><span class="qty">10 g</span> levure fraîche de boulanger</li>
+          <li><span class="qty">5 g</span> sel fin</li>
+          <li><span class="qty">40 g</span> sucre en poudre</li>
+          <li><span class="qty">3</span> œufs entiers</li>
+          <li><span class="qty">50 ml</span> eau tiède (max 45°C)</li>
+          <li><span class="qty">120 g</span> beurre (température ambiante)</li>
+          <li><span class="qty">1</span> citron (zestes)</li>
+        </ul>
+      </div>
+
+      <div class="ingredient-group">
+        <h3>🌸 Glaçage brioche</h3>
+        <ul>
+          <li><span class="qty">1</span> œuf (dorure)</li>
+          <li><span class="qty">30 g</span> sucre en grain (ou sucre perlé)</li>
+          <li><span class="qty">20 g</span> beurre froid (en dés)</li>
+        </ul>
+      </div>
+
+      <div class="ingredient-group">
+        <h3>🍮 Crème pâtissière</h3>
+        <ul>
+          <li><span class="qty">50 cl</span> lait demi-écrémé</li>
+          <li><span class="qty">100 g</span> sucre en poudre</li>
+          <li><span class="qty">3</span> œufs entiers</li>
+          <li><span class="qty">50 g</span> farine de blé T55</li>
+          <li><span class="qty">1</span> gousse de vanille</li>
+        </ul>
+      </div>
+
+      <div class="ingredient-group">
+        <h3>🍦 Crème légère (finition)</h3>
+        <ul>
+          <li><span class="qty">20 cl</span> crème liquide entière (très froide)</li>
+          <li><span class="qty">2 càs</span> arôme fleur d'oranger</li>
+          <li><span class="qty">QS</span> sucre glace (finition)</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRÉPARATION ══ -->
+<section class="recipe-section">
+  <div class="container">
+    <span class="section-eyebrow">Deux méthodes</span>
+    <h2 class="section-title">Préparation</h2>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('classic', this)">Version Classique</button>
+      <button class="tab-btn" onclick="switchTab('thermomix', this)">Version Thermomix</button>
+    </div>
+
+    <!-- ═══ VERSION CLASSIQUE ═══ -->
+    <div id="tab-classic" class="tab-panel active">
+
+      <div class="phase">
+        <div class="phase-title">1 — Pâte à brioche</div>
+
+        <div class="step"><div class="step-num">1</div><div class="step-content">
+          Dans le bol du batteur, mélange les <span class="hl">300 g de farine</span>, les <span class="hl">5 g de sel</span> et les <span class="hl">40 g de sucre</span>.
+        </div></div>
+
+        <div class="step"><div class="step-num">2</div><div class="step-content">
+          Dilue les <span class="hl">10 g de levure fraîche</span> dans les <span class="hl">50 ml d'eau tiède</span> (max 45°C). Ajoute au mélange farine les <span class="hl">3 œufs entiers</span> et la levure diluée. Pétris à basse vitesse avec le crochet — la pâte doit être légèrement collante.
+        </div></div>
+
+        <div class="step"><div class="step-num">3</div><div class="step-content">
+          Pétris pendant <span class="hl">8 à 10 minutes à basse vitesse</span> jusqu'à obtenir une pâte lisse et élastique. Ajoute ensuite les <span class="hl">120 g de beurre à température ambiante</span>, coupé en petits morceaux, et continue à pétrir jusqu'à incorporation complète.
+        </div></div>
+
+        <div class="step"><div class="step-num">4</div><div class="step-content">
+          Incorpore les <span class="hl">zestes du citron</span>. Couvre la pâte d'un linge et laisse pousser <span class="hl">1 heure à température ambiante</span> (ou au four à 40°C) jusqu'à ce qu'elle double de volume.
+        </div></div>
+
+        <div class="step"><div class="step-num">5</div><div class="step-content">
+          Rabats la pâte à la main pour la faire retomber à son volume d'origine, puis place-la <span class="hl">au réfrigérateur 15 minutes minimum</span>.
+        </div></div>
+
+        <div class="step"><div class="step-num">6</div><div class="step-content">
+          Étale la brioche sur <span class="hl">1,5 cm d'épaisseur</span> et découpe un <span class="hl">disque de 20 cm de diamètre</span>. Dépose-le sur une plaque de cuisson. Laisse-le pousser et doubler de volume une nouvelle fois.
+        </div></div>
+
+        <div class="step"><div class="step-num">7</div><div class="step-content">
+          Dore le dessus de la brioche à l'<span class="hl">œuf battu</span>, parsème de <span class="hl">sucre en grain</span> et dépose des <span class="hl">dés de beurre froid</span>. Enfourne à <span class="hl">200°C pendant 20 minutes</span> jusqu'à belle coloration dorée. Laisse refroidir complètement.
+        </div></div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-title">2 — Crème pâtissière</div>
+
+        <div class="step"><div class="step-num">8</div><div class="step-content">
+          Fais bouillir le <span class="hl">50 cl de lait</span> avec la <span class="hl">gousse de vanille fendue en deux</span>. Laisse infuser quelques minutes.
+        </div></div>
+
+        <div class="step"><div class="step-num">9</div><div class="step-content">
+          Dans un bol, blanchis les <span class="hl">3 œufs entiers</span> avec les <span class="hl">100 g de sucre</span> en fouettant énergiquement. Incorpore les <span class="hl">50 g de farine</span>, puis verse le lait bouillant dessus en mélangeant bien.
+        </div></div>
+
+        <div class="step"><div class="step-num">10</div><div class="step-content">
+          Reverse le tout dans la casserole et cuis <span class="hl">3 minutes à partir de la reprise de l'ébullition</span>, sans cesser de fouetter, jusqu'à épaississement. Verse sur une plaque, recouvre d'un <span class="hl">film au contact</span> et refroidis rapidement.
+        </div></div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-title">3 — Crème légère & montage</div>
+
+        <div class="step"><div class="step-num">11</div><div class="step-content">
+          Monte les <span class="hl">20 cl de crème liquide entière très froide</span> en crème fouettée à l'aide du batteur. Réserve au réfrigérateur.
+        </div></div>
+
+        <div class="step"><div class="step-num">12</div><div class="step-content">
+          Dans le même bol, lisse la <span class="hl">crème pâtissière froide</span>, puis incorpore <span class="hl">1/3 de la crème fouettée énergiquement</span>. Ajoute ensuite le reste <span class="hl">délicatement à la maryse</span> ainsi que les <span class="hl">2 cuillères à soupe d'arôme de fleur d'oranger</span>.
+        </div></div>
+
+        <div class="step"><div class="step-num">13</div><div class="step-content">
+          Coupe la brioche refroidie en <span class="hl">deux dans l'épaisseur</span>. À l'aide d'une <span class="hl">poche à pâtisserie</span>, dresse la crème sur le disque inférieur. Referme la tropézienne avec le chapeau, saupoudre de <span class="hl">sucre glace</span> et réserve au frais jusqu'au service.
+        </div></div>
+      </div>
+
+    </div><!-- /classic -->
+
+    <!-- ═══ VERSION THERMOMIX ═══ -->
+    <div id="tab-thermomix" class="tab-panel">
+
+      <div class="phase">
+        <div class="phase-title">1 — Pâte à brioche</div>
+
+        <div class="step"><div class="step-num">1</div><div class="step-content">
+          Installe le pétrin dans le bol. Verse les <span class="hl">300 g de farine</span>, les <span class="hl">5 g de sel</span> et les <span class="hl">40 g de sucre</span>. Lance un premier mélange rapide.
+          <div class="tmx-params">
+            <span class="tmx-badge tmx-speed">Vitesse 3</span>
+            <span class="tmx-badge tmx-time">⏱ 10 secondes</span>
+          </div>
+          <div class="tmx-note">Cela permet de bien répartir le sel et le sucre avant d'ajouter les liquides.</div>
+        </div></div>
+
+        <div class="step"><div class="step-num">2</div><div class="step-content">
+          Dilue les <span class="hl">10 g de levure fraîche</span> dans les <span class="hl">50 ml d'eau tiède</span>. Ajoute les <span class="hl">3 œufs</span> et la levure diluée dans le bol. Pétris.
+          <div class="tmx-params">
+            <span class="tmx-badge tmx-temp">🌡 35°C</span>
+            <span class="tmx-badge tmx-speed">Vitesse 2</span>
+            <span class="tmx-badge tmx-time">⏱ 5 minutes</span>
+          </div>
+          <div class="tmx-note">La pâte doit être légèrement collante. La chaleur douce active la levure sans la détruire.</div>
+        </div></div>
+
+        <div class="step"><div class="step-num">3</div><div class="step-content">
+          Ajoute les <span class="hl">120 g de beurre coupé en dés</span> (température ambiante) et les <span class="hl">zestes du citron</span>. Pétris jusqu'à incorporation complète.
+          <div class="tmx-params">
+            <span class="tmx-badge tmx-temp">🌡 35°C</span>
+            <span class="tmx-badge tmx-speed">Vitesse 3</span>
+            <span class="tmx-badge tmx-time">⏱ 5 minutes</span>
+          </div>
+          <div class="tmx-note">Ajoute le beurre progressivement par l'orifice du couvercle en cours de pétrissage pour une meilleure incorporation.</div>
+        </div></div>
+
+        <div class="step"><div class="step-num">4</div><div class="step-content">
+          Laisse la pâte pousser directement dans le bol fermé (couvercle anti-projections en place).
+          <div class="tmx-params">
+            <span class="tmx-badge tmx-temp">🌡 35°C</span>
+            <span class="tmx-badge tmx-speed">Vitesse "mélange 3"</span>
+            <span class="tmx-badge tmx-time">⏱ 40 minutes</span>
+          </div>
+          <div class="tmx-note">💡 Le mode "mélange" maintient la chaleur douce pour la pousse sans pétrir davantage.</div>
+        </div></div>
+
+        <div class="step"><div class="step-num">5</div><div class="step-content">
+          Rabats la pâte à la main, place-la <span class="hl">15 minutes au réfrigérateur</span>, puis étale-la sur <span class="hl">1,5 cm</span>, découpe un <span class="hl">disque de 20 cm</span>. Laisse pousser de nouveau jusqu'au doublement. Dore à l'œuf, parsème de <span class="hl">sucre en grain</span> et de <span class="hl">dés de beurre froid</span>. Enfourne <span class="hl">200°C / 20 min</span>.
+        </div></div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-title">2 — Crème pâtissière</div>
+
+        <div class="step"><div class="step-num">6</div><div class="step-content">
+          Rince le bol. Installe le fouet. Verse les <span class="hl">3 œufs entiers</span>, les <span class="hl">100 g de sucre</span> et les <span class="hl">50 g de farine</span>. Blanchis le mélange.
+          <div class="tmx-params">
+            <span class="tmx-badge tmx-speed">Vitesse 4</span>
+            <span class="tmx-badge tmx-time">⏱ 3 minutes</span>
+          </div>
+        </div></div>
+
+        <div class="step"><div class="step-num">7</div><div class="step-content">
+          Ajoute le <span class="hl">50 cl de lait</span> et la <span class="hl">gousse de vanille fendue et grattée</span>. Lance la cuisson de la crème.
+          <div class="tmx-params">
+            <span class="tmx-badge tmx-temp">🌡 120°C</span>
+            <span class="tmx-badge tmx-speed">Vitesse "mélange 1"</span>
+            <span class="tmx-badge tmx-time">⏱ 10 minutes</span>
+          </div>
+        </div></div>
+
+        <div class="step"><div class="step-num">8</div><div class="step-content">
+          Termine la cuisson à température plus douce pour une crème parfaitement lisse.
+          <div class="tmx-params">
+            <span class="tmx-badge tmx-temp">🌡 80°C</span>
+            <span class="tmx-badge tmx-speed">Vitesse "mélange 1"</span>
+            <span class="tmx-badge tmx-time">⏱ 10 minutes</span>
+          </div>
+          <div class="tmx-note">Verse ensuite la crème sur une plaque, filme au contact et refroidis rapidement (bain de glace ou congélateur 15 min).</div>
+        </div></div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-title">3 — Crème légère & montage</div>
+
+        <div class="step"><div class="step-num">9</div><div class="step-content">
+          Rince et réfrigère le bol 15 min. Installe le fouet. Monte les <span class="hl">20 cl de crème liquide entière très froide</span> en chantilly.
+          <div class="tmx-params">
+            <span class="tmx-badge tmx-speed">Vitesse 4</span>
+            <span class="tmx-badge tmx-time">⏱ 1 min 30 sec</span>
+          </div>
+          <div class="tmx-note">Surveille attentivement : la crème ne doit pas être trop ferme. Arrête dès qu'elle forme des pics souples. Réserve au frais.</div>
+        </div></div>
+
+        <div class="step"><div class="step-num">10</div><div class="step-content">
+          Sans le fouet, mets la <span class="hl">crème pâtissière froide</span> dans le bol et lisse-la, puis incorpore <span class="hl">1/3 de la crème fouettée</span> énergiquement.
+          <div class="tmx-params">
+            <span class="tmx-badge tmx-speed">Vitesse 3</span>
+            <span class="tmx-badge tmx-time">⏱ 20 secondes</span>
+          </div>
+          Ajoute le reste de la crème fouettée et les <span class="hl">2 càs de fleur d'oranger</span>, et mélange très délicatement à la spatule (pas au Thermomix pour ne pas casser la texture aérienne).
+        </div></div>
+
+        <div class="step"><div class="step-num">11</div><div class="step-content">
+          Coupe la brioche refroidie en deux. Dresse la crème à la <span class="hl">poche à pâtisserie</span> sur le disque inférieur. Referme, saupoudre de <span class="hl">sucre glace</span> et réserve au frais.
+          <div class="tmx-note">💡 La tropézienne est meilleure le jour même. Si préparée à l'avance, ajoute le sucre glace au dernier moment.</div>
+        </div></div>
+      </div>
+
+    </div><!-- /thermomix -->
+
+    <!-- Conservation -->
+    <div class="conservation-box">
+      <div class="conservation-icon">🧊</div>
+      <div>
+        <p><strong>Conservation</strong> — La tarte tropézienne se conserve <strong>24 à 48h au réfrigérateur</strong>. Elle est meilleure le jour même. Sors-la <strong>15 minutes avant la dégustation</strong> pour que la crème retrouve tout son moelleux.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ COMMENTAIRES PERSONNELS ══ -->
+<section class="comments-section">
+  <div class="container">
+    <span class="section-eyebrow">Notes personnelles</span>
+    <h2 class="section-title">Mes commentaires & astuces</h2>
+    <div class="comment-card">
+      <p class="comment-placeholder">✏️ Écris ici tes notes personnelles, astuces et variantes testées…</p>
+      <div class="comment-lines">
+        <div class="comment-line"></div>
+        <div class="comment-line"></div>
+        <div class="comment-line"></div>
+        <div class="comment-line"></div>
+        <div class="comment-line"></div>
+        <div class="comment-line"></div>
+        <div class="comment-line"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Recette originale : <a href="https://www.atelierdeschefs.fr/recettes/13552/tarte-tropezienne/" target="_blank">L'Atelier des Chefs</a> · Adaptation Thermomix personnelle</p>
+</footer>
+
+<script>
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
