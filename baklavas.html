@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baklavas – Pâtisserie Orientale</title>
+  <meta name="description" content="La recette traditionnelle des baklavas : feuilles de pâte filo croustillantes, garniture de fruits secs et sirop au miel parfumé à la fleur d'oranger.">
+  <meta property="og:title" content="Baklavas – Pâtisserie Orientale">
+  <meta property="og:description" content="Pâte filo croustillante, fruits secs caramélisés et sirop au miel : la recette traditionnelle des baklavas.">
+  <meta property="og:image" content="https://cuisine.journaldesfemmes.fr/recette/317446-baklavas">
+  <style>
+    /* === RESET ET BASE === */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f5f5f5; }
+    .container { max-width: 1200px; margin: 0 auto; background-color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+
+    /* === HEADER === */
+    .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 60px 40px; text-align: center; }
+    .header h1 { font-size: 2.8em; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+    .header .resume { font-size: 1.15em; opacity: 0.95; margin-top: 15px; max-width: 800px; margin-left: auto; margin-right: auto; }
+    .header .source { margin-top: 25px; font-size: 0.95em; opacity: 0.9; }
+    .header .source a { color: white; text-decoration: underline; font-weight: 500; }
+    .header .source a:hover { opacity: 0.8; }
+
+    /* === NAVIGATION === */
+    .nav-retour { background-color: #f8f9fa; padding: 15px 40px; border-bottom: 1px solid #e9ecef; }
+    .nav-retour a { color: #667eea; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+    .nav-retour a:hover { text-decoration: underline; }
+
+    /* === IMAGE PRINCIPALE === */
+    .image-principale-container { width: 100%; max-height: 500px; overflow: hidden; background: linear-gradient(135deg, #c8a96e 0%, #8B6914 100%); display: flex; align-items: center; justify-content: center; }
+    .image-placeholder { font-size: 8em; padding: 60px; }
+
+    /* === INFORMATIONS RAPIDES === */
+    .infos-rapides { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; background-color: #f8f9fa; border-bottom: 3px solid #667eea; }
+    .info-item { text-align: center; padding: 30px 20px; border-right: 1px solid #e9ecef; }
+    .info-item:last-child { border-right: none; }
+    .info-item .icon { font-size: 2.5em; margin-bottom: 12px; display: block; }
+    .info-item .label { font-size: 0.85em; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 600; }
+    .info-item .value { font-size: 1.4em; font-weight: bold; color: #667eea; }
+
+    /* === SECTIONS PRINCIPALES === */
+    .content { padding: 50px 40px; }
+    .section { margin-bottom: 60px; }
+    .section-title { font-size: 2.2em; color: #667eea; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 3px solid #667eea; display: flex; align-items: center; gap: 15px; }
+
+    /* === INGRÉDIENTS === */
+    .ingredients-list { background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%); padding: 35px; border-radius: 12px; border-left: 6px solid #ffc107; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .ingredients-group { margin-bottom: 25px; }
+    .ingredients-group:last-child { margin-bottom: 0; }
+    .ingredients-group h3 { font-size: 1.1em; color: #856404; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px dashed #ffc107; padding-bottom: 8px; }
+    .ingredients-list ul { list-style: none; columns: 2; column-gap: 40px; }
+    .ingredients-list li { padding: 12px 0; position: relative; padding-left: 35px; break-inside: avoid; font-size: 1.05em; }
+    .ingredients-list li:before { content: "✓"; position: absolute; left: 0; color: #ffc107; font-weight: bold; font-size: 1.4em; top: 8px; }
+
+    /* === ONGLETS === */
+    .tabs { display: flex; gap: 15px; margin-bottom: 35px; border-bottom: 3px solid #e9ecef; flex-wrap: wrap; }
+    .tab { padding: 18px 35px; background-color: #f8f9fa; border: none; border-radius: 10px 10px 0 0; cursor: pointer; font-size: 1.15em; font-weight: bold; color: #6c757d; transition: all 0.3s ease; border: 2px solid transparent; border-bottom: none; }
+    .tab:hover { background-color: #e9ecef; transform: translateY(-2px); }
+    .tab.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-color: #667eea; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.4s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* === ÉTAPES === */
+    .etape { background-color: white; border: 2px solid #e9ecef; border-radius: 12px; padding: 30px; margin-bottom: 25px; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    .etape:hover { box-shadow: 0 6px 20px rgba(102, 126, 234, 0.15); transform: translateX(8px); border-color: #667eea; }
+    .etape-header { display: flex; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+    .etape-numero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4em; font-weight: bold; flex-shrink: 0; box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3); }
+    .etape-titre { flex: 1; font-size: 1.4em; color: #333; min-width: 200px; font-weight: 600; }
+    .etape-duree { background-color: #d4edda; color: #155724; padding: 8px 18px; border-radius: 25px; font-size: 0.95em; font-weight: 600; border: 1px solid #c3e6cb; }
+    .etape-description { font-size: 1.1em; line-height: 1.9; color: #495057; margin-left: 65px; }
+    .thermomix-params { display: flex; gap: 12px; flex-wrap: wrap; margin-left: 65px; margin-top: 20px; }
+    .thermomix-params span { background-color: #e7f3ff; color: #004085; padding: 10px 18px; border-radius: 25px; font-size: 0.95em; font-weight: 600; border: 1px solid #bee5eb; display: inline-flex; align-items: center; gap: 6px; }
+    .thermomix-params .temp { background-color: #fff3cd; color: #856404; border-color: #ffeeba; }
+    .thermomix-params .vitesse { background-color: #d1ecf1; color: #0c5460; border-color: #bee5eb; }
+    .thermomix-params .duree { background-color: #d4edda; color: #155724; border-color: #c3e6cb; }
+    .thermomix-params .sens { background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; }
+    .etape-ingredients { background-color: #f8f9fa; padding: 18px; border-radius: 8px; margin-left: 65px; margin-top: 18px; font-size: 1em; border-left: 4px solid #667eea; }
+    .etape-ingredients strong { color: #667eea; }
+    .etape-accessoire { margin-left: 65px; margin-top: 12px; font-style: italic; color: #6c757d; font-size: 0.95em; }
+
+    /* === CONSEILS === */
+    .conseils { background-color: #d1ecf1; border-left: 6px solid #0c5460; padding: 25px; border-radius: 10px; margin-top: 35px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .conseils h3 { color: #0c5460; margin-bottom: 15px; font-size: 1.4em; display: flex; align-items: center; gap: 10px; }
+    .conseils p { color: #004085; line-height: 1.9; font-size: 1.05em; }
+
+    /* === ENCART COMMENTAIRE === */
+    .commentaire-box { background: linear-gradient(135deg, #fff9e6 0%, #ffeaa7 100%); border: 3px dashed #ffc107; border-radius: 12px; padding: 35px; margin-top: 50px; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2); }
+    .commentaire-box h3 { color: #856404; margin-bottom: 20px; font-size: 1.6em; display: flex; align-items: center; gap: 12px; }
+    .placeholder-text { color: #856404; background-color: white; border: 2px solid #ffc107; border-radius: 8px; padding: 18px; min-height: 120px; line-height: 1.8; }
+    .placeholder-text strong { display: block; margin-bottom: 10px; font-size: 1.1em; }
+
+    /* === BOUTONS === */
+    .actions-bar { display: flex; gap: 15px; justify-content: center; padding: 30px; background-color: #f8f9fa; border-top: 2px solid #e9ecef; flex-wrap: wrap; }
+    .btn { padding: 14px 30px; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: 1em; cursor: pointer; border: none; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
+    .btn-secondary { background-color: white; color: #667eea; border: 2px solid #667eea; }
+    .btn-secondary:hover { background-color: #667eea; color: white; }
+
+    /* === FOOTER === */
+    .footer { background-color: #343a40; color: white; padding: 40px; text-align: center; }
+    .footer .date { opacity: 0.7; font-size: 0.95em; margin-top: 10px; }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      .header h1 { font-size: 2em; }
+      .content { padding: 30px 20px; }
+      .infos-rapides { grid-template-columns: repeat(2, 1fr); }
+      .info-item { border-right: none; border-bottom: 1px solid #e9ecef; }
+      .ingredients-list ul { columns: 1; }
+      .tabs { flex-direction: column; }
+      .tab { width: 100%; }
+      .etape-description, .thermomix-params, .etape-ingredients, .etape-accessoire { margin-left: 0; }
+      .etape-header { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* === IMPRESSION === */
+    @media print {
+      body { background-color: white; padding: 0; }
+      .container { box-shadow: none; }
+      .nav-retour, .actions-bar, .tab { display: none !important; }
+      .tab-content { display: block !important; page-break-before: always; }
+      .tab-content:first-of-type { page-break-before: avoid; }
+      .etape { page-break-inside: avoid; }
+      .commentaire-box { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- NAVIGATION RETOUR -->
+  <div class="nav-retour">
+    <a href="/">← Retour au catalogue</a>
+  </div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>🥐 Baklavas</h1>
+    <p class="resume">La pâtisserie orientale par excellence : de fines feuilles de pâte filo croustillantes, beurrées une à une, garnies d'un mélange de fruits secs parfumé à la cannelle, et nappées d'un sirop de miel à la fleur d'oranger. Un voyage au cœur des saveurs du Moyen-Orient.</p>
+    <p class="source">Recette originale : <a href="https://cuisine.journaldesfemmes.fr/recette/317446-baklavas" target="_blank" rel="noopener">Voir la source sur Journal des Femmes</a></p>
+  </div>
+
+  <!-- IMAGE (placeholder décoratif) -->
+  <div class="image-principale-container">
+    <div class="image-placeholder">🍯</div>
+  </div>
+
+  <!-- INFORMATIONS RAPIDES -->
+  <div class="infos-rapides">
+    <div class="info-item">
+      <span class="icon">👥</span>
+      <div class="label">Portions</div>
+      <div class="value">~24 pièces</div>
+    </div>
+    <div class="info-item">
+      <span class="icon">⏱️</span>
+      <div class="label">Préparation</div>
+      <div class="value">40 min</div>
+    </div>
+    <div class="info-item">
+      <span class="icon">🔥</span>
+      <div class="label">Cuisson</div>
+      <div class="value">30–35 min</div>
+    </div>
+    <div class="info-item">
+      <span class="icon">⌛</span>
+      <div class="label">Repos</div>
+      <div class="value">12–48 h</div>
+    </div>
+    <div class="info-item">
+      <span class="icon">🛒</span>
+      <div class="label">Ingrédients</div>
+      <div class="value">12</div>
+    </div>
+  </div>
+
+  <!-- CONTENU PRINCIPAL -->
+  <div class="content">
+
+    <!-- INGRÉDIENTS -->
+    <div class="section">
+      <h2 class="section-title"><span>🛒</span> Ingrédients</h2>
+      <div class="ingredients-list">
+
+        <div class="ingredients-group">
+          <h3>🥐 La pâte</h3>
+          <ul>
+            <li>250 g de pâte filo (env. 15–22 feuilles)</li>
+            <li>150 g de beurre doux</li>
+          </ul>
+        </div>
+
+        <div class="ingredients-group">
+          <h3>🌰 La garniture aux fruits secs</h3>
+          <ul>
+            <li>150 g de noix concassées</li>
+            <li>100 g d'amandes effilées (ou en poudre)</li>
+            <li>50 g de pistaches non salées concassées</li>
+            <li>50 g de sucre en poudre</li>
+            <li>1 c. à café de cannelle moulue</li>
+            <li>4 c. à soupe d'eau de fleur d'oranger</li>
+          </ul>
+        </div>
+
+        <div class="ingredients-group">
+          <h3>🍯 Le sirop</h3>
+          <ul>
+            <li>150 g de miel liquide</li>
+            <li>80 ml d'eau</li>
+            <li>2 c. à soupe d'eau de fleur d'oranger</li>
+            <li>1 c. à café de cannelle moulue</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PRÉPARATION -->
+    <div class="section">
+      <h2 class="section-title"><span>👨‍🍳</span> Préparation</h2>
+
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab(event, 'classique')">📖 Version Classique</button>
+        <button class="tab" onclick="switchTab(event, 'thermomix')">🤖 Version Thermomix</button>
+      </div>
+
+      <!-- VERSION CLASSIQUE -->
+      <div id="tab-classique" class="tab-content active">
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">1</div>
+            <div class="etape-titre">Préchauffage et préparation</div>
+          </div>
+          <div class="etape-description">
+            Préchauffer le four à 160°C. Faire fondre les <strong>150 g de beurre</strong> au bain-marie ou au micro-ondes. Beurrer généreusement un moule rectangulaire (30 × 20 cm environ). Garder les feuilles de pâte filo sous un torchon humide pour éviter qu'elles ne se dessèchent.
+          </div>
+          <div class="etape-ingredients"><strong>Ingrédients :</strong> 150 g beurre doux</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">2</div>
+            <div class="etape-titre">Préparation de la garniture aux fruits secs</div>
+          </div>
+          <div class="etape-description">
+            Concasser grossièrement les <strong>150 g de noix</strong>, les <strong>100 g d'amandes</strong> et les <strong>50 g de pistaches</strong> au couteau ou au robot (par impulsions courtes — ne pas réduire en poudre, la texture en éclats est essentielle). Faire torréfier le mélange à sec 5 minutes dans une poêle sur feu moyen en remuant. Laisser refroidir, puis ajouter le <strong>sucre en poudre</strong>, la <strong>cannelle</strong> et les <strong>4 c. à soupe d'eau de fleur d'oranger</strong>. Bien mélanger.
+          </div>
+          <div class="etape-ingredients"><strong>Ingrédients :</strong> 150 g noix • 100 g amandes • 50 g pistaches • 50 g sucre • 1 c. à café cannelle • 4 c. à soupe fleur d'oranger</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">3</div>
+            <div class="etape-titre">Montage – Première couche de pâte filo</div>
+          </div>
+          <div class="etape-description">
+            Couper les feuilles de pâte filo aux dimensions du moule. Déposer une première feuille dans le moule beurré, la badigeonner de beurre fondu au pinceau. Répéter l'opération en superposant <strong>7 à 8 feuilles beurrées une par une</strong> pour former la base.
+          </div>
+          <div class="etape-ingredients"><strong>Ingrédients :</strong> ~7–8 feuilles de pâte filo • beurre fondu</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">4</div>
+            <div class="etape-titre">Montage – Couches de garniture</div>
+          </div>
+          <div class="etape-description">
+            Répartir la <strong>moitié de la garniture aux fruits secs</strong> sur la première couche de pâte. Couvrir de <strong>4 à 5 nouvelles feuilles beurrées une par une</strong>. Verser le <strong>reste de la garniture</strong>. Terminer en déposant les <strong>dernières feuilles beurrées</strong> (7 à 8) pour fermer le baklava.
+          </div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">5</div>
+            <div class="etape-titre">Découpe avant cuisson</div>
+          </div>
+          <div class="etape-description">
+            À l'aide d'un couteau bien aiguisé, découper le baklava en <strong>losanges ou en carrés</strong> en traversant toutes les couches jusqu'au fond. Cette étape avant cuisson est indispensable : elle permet des parts nettes et une bonne pénétration du sirop après cuisson.
+          </div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">6</div>
+            <div class="etape-titre">Cuisson</div>
+            <div class="etape-duree">⏱ 30 min à 160°C + 5 min à 180°C</div>
+          </div>
+          <div class="etape-description">
+            Enfourner dans le bas du four à <strong>160°C pendant 30 minutes</strong>, puis monter la température à <strong>180°C pendant 5 minutes</strong> pour dorer le dessus. Surveiller attentivement la couleur en fin de cuisson : ça peut passer du doré au brûlé très vite.
+          </div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">7</div>
+            <div class="etape-titre">Préparation du sirop</div>
+            <div class="etape-duree">⏱ 10 min</div>
+          </div>
+          <div class="etape-description">
+            Pendant la cuisson, préparer le sirop : mettre dans une casserole le <strong>miel</strong>, l'<strong>eau</strong>, l'<strong>eau de fleur d'oranger</strong> et la <strong>cannelle</strong>. Porter à ébullition puis laisser frémir 5 à 10 minutes jusqu'à léger épaississement. Le sirop doit rester fluide mais nappant.
+          </div>
+          <div class="etape-ingredients"><strong>Ingrédients :</strong> 150 g miel • 80 ml eau • 2 c. à soupe fleur d'oranger • 1 c. à café cannelle</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">8</div>
+            <div class="etape-titre">Nappage et repos</div>
+            <div class="etape-duree">⏱ 12 h à 48 h de repos</div>
+          </div>
+          <div class="etape-description">
+            Dès la sortie du four, verser le <strong>sirop chaud en filet</strong> sur les baklavas encore chauds en répartissant uniformément. Le contraste chaud/chaud permet une absorption optimale. Laisser refroidir complètement à température ambiante, puis patienter idéalement <strong>24 à 48 heures</strong> avant de déguster — les couches s'adhèrent et les saveurs se développent pleinement.
+          </div>
+        </div>
+
+        <div class="conseils">
+          <h3><span>💡</span> Conseils version classique</h3>
+          <p>
+            <strong>Ne pas réduire les fruits secs en poudre :</strong> la texture en petits éclats est ce qui fait la noblesse du baklava. Quelques impulsions au robot, pas plus.<br>
+            <strong>Pâte filo :</strong> toujours garder les feuilles non utilisées sous un torchon humide — elles sèchent et s'effritent très vite.<br>
+            <strong>Variante :</strong> utiliser uniquement des pistaches pour un baklava turc, ou uniquement des amandes pour une version plus provençale.<br>
+            <strong>Conservation :</strong> dans une boîte hermétique à température ambiante (pas au frigo !), les baklavas se conservent plusieurs jours, voire une semaine. Ils sont encore meilleurs après 48 h.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- VERSION THERMOMIX -->
+      <div id="tab-thermomix" class="tab-content">
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">1</div>
+            <div class="etape-titre">Préchauffage et préparation du moule</div>
+          </div>
+          <div class="etape-description">
+            Préchauffer le four à 160°C. Beurrer un moule rectangulaire de 30 × 20 cm. Garder les feuilles de pâte filo sous un torchon humide.
+          </div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">2</div>
+            <div class="etape-titre">Fonte du beurre</div>
+          </div>
+          <div class="etape-description">
+            Mettre les <strong>150 g de beurre</strong> coupés en morceaux dans le bol. Faire fondre.
+          </div>
+          <div class="thermomix-params">
+            <span class="temp">🌡 60°C</span>
+            <span class="duree">⏱ 3 min</span>
+            <span class="vitesse">💨 Vitesse 1</span>
+          </div>
+          <div class="etape-ingredients"><strong>Ingrédients :</strong> 150 g beurre doux</div>
+          <div class="etape-accessoire">Transvaser le beurre fondu dans un bol et réserver. Rincer et sécher le bol.</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">3</div>
+            <div class="etape-titre">Concassage des fruits secs</div>
+          </div>
+          <div class="etape-description">
+            Mettre les <strong>150 g de noix</strong>, les <strong>100 g d'amandes</strong> et les <strong>50 g de pistaches</strong> dans le bol. Concasser en impulsions courtes. Vérifier la texture entre chaque impulsion : on veut des éclats grossiers, pas de la poudre.
+          </div>
+          <div class="thermomix-params">
+            <span class="duree">⏱ 3 × 2 sec</span>
+            <span class="vitesse">💨 Turbo (impulsions)</span>
+          </div>
+          <div class="etape-ingredients"><strong>Ingrédients :</strong> 150 g noix • 100 g amandes • 50 g pistaches</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">4</div>
+            <div class="etape-titre">Torréfaction et mélange garniture</div>
+          </div>
+          <div class="etape-description">
+            Ajouter le <strong>sucre en poudre</strong>, la <strong>cannelle</strong> et les <strong>4 c. à soupe d'eau de fleur d'oranger</strong>. Faire chauffer pour torréfier légèrement les fruits secs.
+          </div>
+          <div class="thermomix-params">
+            <span class="temp">🌡 Varoma</span>
+            <span class="duree">⏱ 5 min</span>
+            <span class="vitesse">💨 Vitesse 1</span>
+            <span class="sens">← Sens inverse</span>
+          </div>
+          <div class="etape-ingredients"><strong>Ingrédients :</strong> 50 g sucre • 1 c. à café cannelle • 4 c. à soupe fleur d'oranger</div>
+          <div class="etape-accessoire">Transvaser dans un saladier. Laisser tiédir. Rincer et sécher le bol.</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">5</div>
+            <div class="etape-titre">Montage de la pâte filo</div>
+          </div>
+          <div class="etape-description">
+            Couper les feuilles de pâte filo aux dimensions du moule. Déposer une feuille dans le moule beurré, badigeonner de beurre fondu au pinceau. Superposer <strong>7 à 8 feuilles beurrées une par une</strong> pour la base. Verser la <strong>moitié de la garniture</strong>, couvrir de <strong>4 à 5 feuilles beurrées</strong>, puis le reste de la garniture, et terminer par <strong>7 à 8 feuilles beurrées</strong>.
+          </div>
+          <div class="etape-accessoire">🔧 Accessoire conseillé : pinceau à pâtisserie pour badigeonner le beurre uniformément.</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">6</div>
+            <div class="etape-titre">Découpe avant cuisson</div>
+          </div>
+          <div class="etape-description">
+            À l'aide d'un couteau bien aiguisé, découper le baklava en <strong>losanges ou carrés</strong> en traversant toutes les couches jusqu'au fond. Enfourner dans le bas du four à <strong>160°C pendant 30 min</strong>, puis monter à <strong>180°C pendant 5 min</strong> pour dorer.
+          </div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">7</div>
+            <div class="etape-titre">Sirop au Thermomix</div>
+          </div>
+          <div class="etape-description">
+            Mettre dans le bol le <strong>miel</strong>, l'<strong>eau</strong>, l'<strong>eau de fleur d'oranger</strong> et la <strong>cannelle</strong>. Chauffer pour obtenir un sirop légèrement nappant.
+          </div>
+          <div class="thermomix-params">
+            <span class="temp">🌡 Varoma</span>
+            <span class="duree">⏱ 8 min</span>
+            <span class="vitesse">💨 Vitesse 2</span>
+          </div>
+          <div class="etape-ingredients"><strong>Ingrédients :</strong> 150 g miel • 80 ml eau • 2 c. à soupe fleur d'oranger • 1 c. à café cannelle</div>
+        </div>
+
+        <div class="etape">
+          <div class="etape-header">
+            <div class="etape-numero">8</div>
+            <div class="etape-titre">Nappage et repos</div>
+            <div class="etape-duree">⏱ 12 à 48 h de repos</div>
+          </div>
+          <div class="etape-description">
+            Verser immédiatement le <strong>sirop chaud en filet</strong> sur les baklavas encore chauds à la sortie du four. Laisser absorber et refroidir à température ambiante. Idéalement, patienter <strong>24 à 48 heures</strong> avant dégustation.
+          </div>
+        </div>
+
+        <div class="conseils">
+          <h3><span>💡</span> Conseils version Thermomix</h3>
+          <p>
+            <strong>Impulsions Turbo :</strong> ne pas dépasser 2 secondes par impulsion pour les fruits secs — contrôler la texture entre chaque. L'objectif est des morceaux grossiers, pas une pâte.<br>
+            <strong>Sirop :</strong> surveiller la texture ; si après 8 min le sirop vous semble trop liquide, ajouter 2 min supplémentaires à Varoma.<br>
+            <strong>La torréfaction</strong> au Thermomix est plus douce qu'à la poêle — c'est suffisant pour développer les arômes.
+          </p>
+        </div>
+
+        <div class="conseils" style="background-color: #f8d7da; border-left-color: #721c24; margin-top: 20px;">
+          <h3 style="color: #721c24;"><span>📋</span> Différences avec la version classique</h3>
+          <p style="color: #721c24;">
+            Le Thermomix réalise la fonte du beurre, le concassage des fruits secs (via Turbo), la légère torréfaction de la garniture et la cuisson du sirop. Le montage des feuilles de pâte filo reste manuel (badigeonnage au pinceau). La découpe et la cuisson au four sont identiques dans les deux versions.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ENCART COMMENTAIRE -->
+    <div class="commentaire-box">
+      <h3><span>📝</span> Mes notes personnelles</h3>
+      <div class="placeholder-text">
+        <strong>Zone pour vos commentaires :</strong>
+        • Modifications que vous avez apportées<br>
+        • Conseils pour la prochaine fois<br>
+        • Ce que vous et vos invités ont aimé<br>
+        • Notes de dégustation
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <!-- BARRE D'ACTIONS -->
+  <div class="actions-bar">
+    <button class="btn btn-primary" onclick="window.print()">
+      <span>🖨️</span> Imprimer / PDF
+    </button>
+    <a href="/" class="btn btn-secondary">
+      <span>🏠</span> Retour au catalogue
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>✨ Recette ajoutée au catalogue</p>
+    <p class="date">Généré avec Claude AI • Mars 2026</p>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+  function switchTab(event, tabName) {
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    contents.forEach(content => content.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('tab-' + tabName).classList.add('active');
+  }
+</script>
+</body>
+</html>
